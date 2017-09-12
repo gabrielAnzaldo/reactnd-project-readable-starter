@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 
 const AllBlogPost = ({ posts }) => (
   <div>
-    {posts.map(item => (
-      <div key={item.id}>{item.title}</div>
-    ))}
-  </div>
+    <hr />
+    <ul>
+      {posts.map(item => (
+        <li key={item.id}>
+          {item.title} Category {`(${item.category})`}
+        </li>
+      ))}
+    </ul>
+  </div >
 );
 
 AllBlogPost.propTypes = {

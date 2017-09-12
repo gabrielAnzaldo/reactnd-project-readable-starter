@@ -33,9 +33,24 @@ class Main extends Component {
             </div>
           )}
         />
-        <Route path="/redux" component={CategoryPosts} />
-        <Route path="/react" component={CategoryPosts} />
-        <Route path="/udacity" component={CategoryPosts} />
+        <Route
+          path="/redux"
+          render={() => (
+            <CategoryPosts category="redux" />
+          )}
+        />
+        <Route
+          path="/react"
+          render={() => (
+            <CategoryPosts category="react" />
+          )}
+        />
+        <Route
+          path="/udacity"
+          render={() => (
+            <CategoryPosts category="udacity" />
+          )}
+        />
       </div>
     );
   }

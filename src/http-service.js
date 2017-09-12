@@ -5,7 +5,7 @@ export const getAllCategories = () => fetch(`${api}/categories`,
   defaultParameters)
   .then(response => response.json());
 
-export const getCategoryPosts = category => fetch(`${api}/${category}/posts`,
+export const getPostsByCategory = category => fetch(`${api}/${category}/posts`,
   defaultParameters)
   .then(response => response.json());
 
