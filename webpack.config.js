@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
@@ -23,17 +24,25 @@ const config = {
             presets: ['env']
           }
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  plugins: [new HtmlWebpackPlugin(
-    {
-      template: './src/index.html'
-    }
-  )]
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+    }),
+    new HtmlWebpackPlugin({ template: './src/index.html' }
+    )]
 };
 
 module.exports = config;

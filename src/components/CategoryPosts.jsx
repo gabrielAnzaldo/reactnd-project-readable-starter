@@ -18,7 +18,8 @@ class CategoryPosts extends Component {
               {item.title}
             </li>
           ))}
-        {this.props && this.props.categoryPosts && this.props.categoryPosts.length === 0 &&
+        {this.props && this.props.categoryPosts &&
+          this.props.categoryPosts.length === 0 &&
           <p>There is no added posts </p>
         }
       </ul>
@@ -35,7 +36,7 @@ CategoryPosts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  categoryPosts: state.finalPosts,
+  categoryPosts: state.finalPosts || [],
 });
 
 const connectedCategoryPosts = connect(mapStateToProps)(CategoryPosts);

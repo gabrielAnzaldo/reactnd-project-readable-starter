@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 const AllBlogPost = ({ posts }) => (
   <div>
     <hr />
+    <h3>All posts</h3>
     <ul>
       {posts.map(item => (
         <li key={item.id}>
-          {item.title} Category {`(${item.category})`}
+          {item.title} {`(${item.category})`} {`(${item.voteScore})`}
         </li>
       ))}
     </ul>

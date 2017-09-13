@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Categories = ({ categories }) => (
   <div>
+    <h3>Categories</h3>
     <ul>
       {categories && categories.map(item => (
         <div key={item.name}>
