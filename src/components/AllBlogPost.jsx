@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import '../../node_modules/material-design-icons/iconfont/material-icons.css';
 
 class AllBlogPost extends Component {
-  orderBy = (property) => {
-    console.log('property', property, this.props);
+  orderBy = () => {
   };
 
   render() {
