@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import AddPost from './AddPost';
+
 const Categories = ({ categories }) => (
   <div>
-    <h3>Categories</h3>
+    <h3>
+      Categories
+    </h3>
+    <AddPost />
     <ul>
       {categories && categories.map(item => (
         <div key={item.name}>
