@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import uuidv4 from 'uuid/v4';
+import { connect } from 'react-redux';
 
 import { addNewPost } from '../http-service';
+import { fetchAllPosts } from '../actions';
 
 class AddPost extends Component {
   state = {
@@ -46,8 +49,8 @@ class AddPost extends Component {
     addNewPost(newPost)
       .then(() => {
         this.clearNewPostState();
+        this.props.dispatch(fetchAllPosts());
       });
-    this.clearNewPostState();
   }
 
   handleChange = (event) => {
@@ -146,4 +149,9 @@ class AddPost extends Component {
   }
 }
 
-export default AddPost;
+AddPost.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+const conectedComponent = connect()(AddPost);
+export default conectedComponent;
