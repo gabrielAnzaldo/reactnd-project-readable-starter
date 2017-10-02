@@ -23,7 +23,8 @@ export const addNewPost = postData => fetch(`${api}/posts`,
     },
     body: JSON.stringify(postData),
   })
-  .then(response => response.json());
+  .then(response => response.json())
+  .catch(response => response.json());
 
 export const getPost = postId => fetch(`${api}/posts/${postId}`,
   defaultParameters)

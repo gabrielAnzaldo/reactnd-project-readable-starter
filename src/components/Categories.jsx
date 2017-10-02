@@ -7,10 +7,16 @@ import AddPost from './AddPost';
 
 const Categories = ({ categories }) => (
   <div>
-    <h3>
-      Categories
-    </h3>
-    <AddPost />
+    <div className="row">
+      <div className="col">
+        <h3>
+          Categories
+        </h3>
+      </div>
+      <div className="col">
+        <AddPost />
+      </div>
+    </div>
     <ul>
       {categories && categories.map(item => (
         <div key={item.name}>
