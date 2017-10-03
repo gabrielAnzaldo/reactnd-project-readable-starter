@@ -15,9 +15,7 @@ class AddPost extends Component {
     title: '',
     body: '',
     author: '',
-    category: '',
-    voteScore: 1,
-    deleted: false,
+    category: 'react',
   };
 
   openModal = () => {
@@ -128,9 +126,9 @@ class AddPost extends Component {
                   onChange={this.handleChange}
                   style={{ width: '100%' }}
                 >
-                  <option defaultValue value="React">React</option>
-                  <option value="Redux">Redux</option>
-                  <option value="Udacity">Udacity</option>
+                  <option defaultValue value="react">React</option>
+                  <option value="redux">Redux</option>
+                  <option value="udacity">Udacity</option>
                 </select>
               </div>
               <div className="col" style={{ textAlign: 'center', marginTop: '10px' }}>

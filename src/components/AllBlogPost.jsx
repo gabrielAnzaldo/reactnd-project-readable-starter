@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import sortBy from 'sort-by';
 import '../../node_modules/material-design-icons/iconfont/material-icons.css';
 
+import Post from './Post';
+
 class AllBlogPost extends Component {
   state = {
     descendantScore: false,
@@ -83,9 +85,7 @@ class AllBlogPost extends Component {
         <h3>All posts</h3>
         <ul>
           {posts.map(item => (
-            <li key={item.id}>
-              {item.title} {`(${item.category})`} {`(${item.voteScore})`}
-            </li>
+            <Post key={item.id} data={item} />
           ))}
         </ul>
       </div >

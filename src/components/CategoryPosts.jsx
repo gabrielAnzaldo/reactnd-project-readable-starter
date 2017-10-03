@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchPostsByCategory } from '../actions/index';
 
+import Post from './Post';
+
 class CategoryPosts extends Component {
   componentWillMount() {
     this.props.dispatch(fetchPostsByCategory(this.props.category));
@@ -13,10 +15,7 @@ class CategoryPosts extends Component {
       <ul>
         {this.props && this.props.categoryPosts &&
           this.props.categoryPosts.map(item => (
-            <li key={item.id}>
-              {item.body}<br />
-              {item.title}
-            </li>
+            <Post key={item.id} data={item} />
           ))}
         {this.props && this.props.categoryPosts &&
           this.props.categoryPosts.length === 0 &&
