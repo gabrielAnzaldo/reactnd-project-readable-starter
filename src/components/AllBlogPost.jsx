@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import sortBy from 'sort-by';
 import '../../node_modules/material-design-icons/iconfont/material-icons.css';
 
 class AllBlogPost extends Component {
-  orderBy = () => {
+  state = {
+    descendantScore: false,
+    descendantTimeStamp: false,
+    orderCriteria: 'id',
+  }
+  orderByProperty = (property, criteria) => {
+    const changedOrder = !this.state[criteria];
+    const orderCriteria = changedOrder ? property : `-${property}`;
+    this.setState({
+      [criteria]: changedOrder,
+      orderCriteria,
+    });
   };
 
   render() {
+    const { posts } = this.props;
+    posts.sort(sortBy(this.state.orderCriteria));
+
     return (
       <div>
         <hr />
@@ -21,13 +36,20 @@ class AllBlogPost extends Component {
                 type="button"
                 className="btn btn-primary"
                 style={{ paddingLeft: '20px', paddingRight: '15px' }}
-                onClick={() => this.orderBy('voteScore')}
+                onClick={() => this.orderByProperty('voteScore', 'descendantScore')}
               >
                 <div className="row">
                   vote score
-                  <i className="material-icons">
-                    keyboard_arrow_up
-                  </i>
+                  {this.state.descendantScore &&
+                    <i className="material-icons">
+                      keyboard_arrow_down
+                    </i>
+                  }
+                  {!this.state.descendantScore &&
+                    <i className="material-icons">
+                      keyboard_arrow_up
+                    </i>
+                  }
                 </div>
               </button>
             </div>
@@ -36,13 +58,20 @@ class AllBlogPost extends Component {
                 type="button"
                 className="btn btn-primary"
                 style={{ paddingLeft: '20px', paddingRight: '15px' }}
-                onClick={() => this.orderBy('timestamp')}
+                onClick={() => this.orderByProperty('timestamp', 'descendantTimeStamp')}
               >
                 <div className="row">
                   timestamp
-                  <i className="material-icons">
-                    keyboard_arrow_up
-                  </i>
+                  {this.state.descendantTimeStamp &&
+                    <i className="material-icons">
+                      keyboard_arrow_down
+                    </i>
+                  }
+                  {!this.state.descendantTimeStamp &&
+                    <i className="material-icons">
+                      keyboard_arrow_up
+                    </i>
+                  }
                 </div>
               </button>
             </div>
@@ -53,7 +82,7 @@ class AllBlogPost extends Component {
         </div>
         <h3>All posts</h3>
         <ul>
-          {this.props.posts.map(item => (
+          {posts.map(item => (
             <li key={item.id}>
               {item.title} {`(${item.category})`} {`(${item.voteScore})`}
             </li>
