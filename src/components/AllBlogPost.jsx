@@ -8,7 +8,7 @@ class AllBlogPost extends Component {
   state = {
     descendantScore: false,
     descendantTimeStamp: false,
-    orderCriteria: 'id',
+    orderCriteria: '-voteScore',
   }
   orderByProperty = (property, criteria) => {
     const changedOrder = !this.state[criteria];
