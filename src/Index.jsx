@@ -10,6 +10,7 @@ import 'bootstrap';
 import reducer from './reducers';
 import App from './components/App';
 import { fetchCategories, fetchAllPosts } from './actions/index';
+import './style.css';
 
 /* eslint no-underscore-dangle: 0 */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

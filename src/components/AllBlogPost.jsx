@@ -29,57 +29,48 @@ class AllBlogPost extends Component {
       <div>
         <hr />
         <div className="container">
-          <div className="row justify-content-start">
-            <div className="col col-sm-2">
-              One by:
-            </div>
-            <div className="col col-sm-3">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{ paddingLeft: '20px', paddingRight: '15px' }}
-                onClick={() => this.orderByProperty('voteScore', 'descendantScore')}
-              >
-                <div className="row">
-                  vote score
-                  {this.state.descendantScore &&
-                    <i className="material-icons">
-                      keyboard_arrow_down
-                    </i>
-                  }
-                  {!this.state.descendantScore &&
-                    <i className="material-icons">
-                      keyboard_arrow_up
-                    </i>
-                  }
-                </div>
-              </button>
-            </div>
-            <div className="col col-sm-3">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{ paddingLeft: '20px', paddingRight: '15px' }}
-                onClick={() => this.orderByProperty('timestamp', 'descendantTimeStamp')}
-              >
-                <div className="row">
-                  timestamp
-                  {this.state.descendantTimeStamp &&
-                    <i className="material-icons">
-                      keyboard_arrow_down
-                    </i>
-                  }
-                  {!this.state.descendantTimeStamp &&
-                    <i className="material-icons">
-                      keyboard_arrow_up
-                    </i>
-                  }
-                </div>
-              </button>
-            </div>
-            <div className="col col-sm-4">
-              <span />
-            </div>
+          <div className="row">
+            One by:
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{ paddingLeft: '20px', paddingRight: '15px', marginRight: '15px', marginLeft: '15px' }}
+              onClick={() => this.orderByProperty('voteScore', 'descendantScore')}
+            >
+              <div className="row">
+                vote score
+                {this.state.descendantScore &&
+                  <i className="material-icons">
+                    keyboard_arrow_down
+                  </i>
+                }
+                {!this.state.descendantScore &&
+                  <i className="material-icons">
+                    keyboard_arrow_up
+                  </i>
+                }
+              </div>
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{ paddingLeft: '20px', paddingRight: '15px', marginRight: '15px' }}
+              onClick={() => this.orderByProperty('timestamp', 'descendantTimeStamp')}
+            >
+              <div className="row">
+                timestamp
+                {this.state.descendantTimeStamp &&
+                  <i className="material-icons">
+                    keyboard_arrow_down
+                  </i>
+                }
+                {!this.state.descendantTimeStamp &&
+                  <i className="material-icons">
+                    keyboard_arrow_up
+                  </i>
+                }
+              </div>
+            </button>
           </div>
         </div>
         <h3>All posts</h3>
