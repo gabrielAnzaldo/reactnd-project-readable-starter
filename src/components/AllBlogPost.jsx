@@ -8,13 +8,13 @@ import Post from './Post';
 
 class AllBlogPost extends Component {
   state = {
-    descendantScore: false,
-    descendantTimeStamp: false,
+    descendantScore: true,
+    descendantTimeStamp: true,
     orderCriteria: '-voteScore',
   }
   orderByProperty = (property, criteria) => {
     const changedOrder = !this.state[criteria];
-    const orderCriteria = changedOrder ? property : `-${property}`;
+    const orderCriteria = changedOrder ? `-${property}` : property;
     this.setState({
       [criteria]: changedOrder,
       orderCriteria,

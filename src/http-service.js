@@ -29,3 +29,15 @@ export const addNewPost = postData => fetch(`${api}/posts`,
 export const getPost = postId => fetch(`${api}/posts/${postId}`,
   defaultParameters)
   .then(response => response.json());
+
+export const changeVotePost = (postId, voteParam) => fetch(`${api}/posts/${postId}`,
+  {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'granted',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ option: voteParam }),
+  })
+  .then(response => response.json());
