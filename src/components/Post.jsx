@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 
-import { changeVotePost } from '../http-service';
+import { changeVotePost, deletePost } from '../http-service';
 import { fetchAllPosts } from '../actions';
 
+const customStyles = {
+  content: {
+    height: '120px',
+    width: '600px',
+    margin: '0 auto',
+  },
+};
+
 class Post extends Component {
+  state = {
+    deletePostModalIsOpen: false,
+  };
+
   changeVote = (voteType) => {
     changeVotePost(this.props.data.id, voteType)
       .then(() => {
@@ -13,22 +26,86 @@ class Post extends Component {
       });
   };
 
+  closeDeletePostModal = (state) => {
+    this.setState({
+      deletePostModalIsOpen: false,
+    });
+
+    if (state) {
+      deletePost(this.props.data.id)
+        .then(() => {
+          this.props.dispatch(fetchAllPosts());
+        });
+    }
+  }
+
+  deletePost = () => {
+    this.setState({
+      deletePostModalIsOpen: true,
+    });
+  }
+
+  editPost = () => {
+    console.log('editing');
+  }
+
   render() {
     return (
       <div
         className="card"
         style={{ width: '60%', margin: '0 auto', marginBottom: '15px', marginTop: '15px' }}
       >
+        <Modal
+          isOpen={this.state.deletePostModalIsOpen}
+          onRequestClose={this.closeDeletePostModal}
+          shouldCloseOnOverlayClick={false}
+          contentLabel="Modal"
+          style={customStyles}
+        >
+          <p>Are you sure you want to delete this Post?</p>
+          <div className="row">
+            <div className="col-1">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => this.closeDeletePostModal(true)}
+              >
+                Yes
+              </button>
+            </div>
+            <div className="col-1">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => this.closeDeletePostModal(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </Modal>
         <div className="card-body">
           <div className="row">
             <div className="col-10">
               <h4 className="card-title">{this.props.data.title}</h4>
             </div>
             <div className="col-2">
-              <i className="material-icons" style={{ float: 'right', color: '#e25151' }}>
-                close
+              <i
+                className="material-icons"
+                style={{ float: 'right', color: '#e25151', cursor: 'pointer' }}
+                onClick={this.deletePost}
+                role="button"
+                tabIndex="-1"
+              >
+                delete
               </i>
-              <i className="material-icons" style={{ float: 'right', color: 'rgb(20, 86, 156)' }}>
+              <i
+                className="material-icons"
+                style={{ float: 'right', color: 'rgb(20, 86, 156)', cursor: 'pointer' }}
+                onClick={this.editPost}
+                role="button"
+                tabIndex="-1"
+              >
                 edit
               </i>
             </div>

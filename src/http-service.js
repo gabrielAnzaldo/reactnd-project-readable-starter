@@ -41,3 +41,14 @@ export const changeVotePost = (postId, voteParam) => fetch(`${api}/posts/${postI
     body: JSON.stringify({ option: voteParam }),
   })
   .then(response => response.json());
+
+export const deletePost = postId => fetch(`${api}/posts/${postId}`,
+  {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'granted',
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => response);

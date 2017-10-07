@@ -57,7 +57,7 @@ function getAll(token) {
   return new Promise((res) => {
     const posts = getData(token)
     let keys = Object.keys(posts)
-    let filtered_keys = keys.filter(key => !posts.deleted)
+    let filtered_keys = keys.filter(key => !posts[key].deleted)
     res(filtered_keys.map(key => posts[key]))
   })
 }

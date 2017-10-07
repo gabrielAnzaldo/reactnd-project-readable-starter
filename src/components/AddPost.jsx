@@ -70,6 +70,7 @@ class AddPost extends Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={false}
           contentLabel="Example Modal"
         >
           <i
