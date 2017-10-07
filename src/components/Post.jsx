@@ -46,7 +46,7 @@ class Post extends Component {
   }
 
   editPost = () => {
-    console.log('editing');
+    this.setState({ deletePostModalIsOpen: true });
   }
 
   render() {
