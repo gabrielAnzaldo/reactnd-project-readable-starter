@@ -6,8 +6,9 @@ import { fetchPostsByCategory } from '../actions/index';
 import Post from './Post';
 
 class CategoryPosts extends Component {
-  componentWillMount() {
-    this.props.dispatch(fetchPostsByCategory(this.props.category));
+  componentDidMount() {
+    const { category } = this.props.match.params;
+    this.props.dispatch(fetchPostsByCategory(category));
   }
 
   render() {
@@ -27,11 +28,15 @@ class CategoryPosts extends Component {
 }
 
 CategoryPosts.propTypes = {
-  category: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   categoryPosts: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
   })).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      category: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

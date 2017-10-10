@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 import { changeVotePost, deletePost } from '../http-service';
 import { fetchAllPosts } from '../actions';
@@ -117,6 +118,10 @@ class Post extends Component {
             {this.props.data.body}
           </p>
           <h5><b>score:</b> {this.props.data.voteScore}</h5>
+
+          <Link to={`/${this.props.data.category}/${this.props.data.id}`}>
+            view details
+          </Link>
           <div className="row">
             <div className="col">
               <button
@@ -142,16 +147,21 @@ class Post extends Component {
   }
 }
 
+Post.defaultProps = {
+  data: {},
+  dispatch: () => { },
+};
+
 Post.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    voteScore: PropTypes.number.isRequired,
-    author: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    category: PropTypes.string,
+    voteScore: PropTypes.number,
+    author: PropTypes.string,
+    body: PropTypes.string,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
 };
 
 const connectedPostComponent = connect()(Post);

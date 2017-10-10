@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import Categories from './Categories';
 import CategoryPosts from './CategoryPosts';
 import AllBlogPost from './AllBlogPost';
+import PostDetail from '../components/PostDetail';
 
 class Main extends Component {
   componentDidMount() {
@@ -23,22 +24,14 @@ class Main extends Component {
           )}
         />
         <Route
-          path="/redux"
-          render={() => (
-            <CategoryPosts category="redux" />
-          )}
+          exact
+          path="/:category"
+          component={CategoryPosts}
         />
         <Route
-          path="/react"
-          render={() => (
-            <CategoryPosts category="react" />
-          )}
-        />
-        <Route
-          path="/udacity"
-          render={() => (
-            <CategoryPosts category="udacity" />
-          )}
+          exact
+          path="/:category/:postId"
+          component={PostDetail}
         />
       </div>
     );

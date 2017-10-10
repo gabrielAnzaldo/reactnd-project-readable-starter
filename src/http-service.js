@@ -52,3 +52,19 @@ export const deletePost = postId => fetch(`${api}/posts/${postId}`,
     },
   })
   .then(response => response);
+
+export const addNewComment = commentData => fetch(`${api}/comments`,
+  {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'granted',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(commentData),
+  })
+  .then(response => response.json());
+
+export const getPostComments = postId => fetch(`${api}/posts/${postId}/comments`,
+  defaultParameters)
+  .then(response => response.json());
