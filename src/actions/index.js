@@ -3,6 +3,7 @@ import * as BlogAPI from '../http-service';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY';
+export const GET_ALL_POST_COMMENTS = 'GET_ALL_POST_COMMENTS';
 
 export const getCategories = categories => ({
   type: GET_CATEGORIES,
@@ -18,6 +19,12 @@ export const getPostsByCategory = data => ({
   type: GET_POSTS_BY_CATEGORY,
   categoryPosts: data.categoryPosts,
   name: data.name,
+});
+
+export const getPostComments = (postId, postComments) => ({
+  type: GET_ALL_POST_COMMENTS,
+  postId,
+  postComments,
 });
 
 export const fetchCategories = () => dispatch => (
@@ -42,4 +49,10 @@ export const fetchPostsByCategory = category => dispatch => (
       };
       return dispatch(getPostsByCategory(response));
     })
+);
+
+export const fetchPostComments = postId => dispatch => (
+  BlogAPI
+    .getPostComments(postId)
+    .then(response => dispatch(getPostComments(postId, response)))
 );

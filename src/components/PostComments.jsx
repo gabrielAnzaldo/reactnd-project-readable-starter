@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 
-import { addNewComment, getPostComments } from '../http-service';
+import { addNewComment } from '../http-service';
 import PostComment from './PostComment';
+import { fetchPostComments } from '../actions/index';
 
 const customStyles = {
   content: {
@@ -17,18 +19,14 @@ const customStyles = {
 class PostComments extends Component {
   state = {
     isOpen: false,
-    availableComments: [],
     commentBody: '',
   };
 
   componentDidMount() {
-    getPostComments(this.props.postId)
-      .then((response) => {
-        this.setState({ availableComments: response });
-      });
+    this.props.dispatch(fetchPostComments(this.props.postId));
   }
 
-  onChange = () => {
+  onChange = (event) => {
     this.setState({ commentBody: event.target.value });
   }
 
@@ -46,7 +44,11 @@ class PostComments extends Component {
         owner: 'none',
         parentId: this.props.postId,
       };
-      addNewComment(postCommentData);
+      addNewComment(postCommentData)
+        .then(() => {
+          this.props.dispatch(fetchPostComments(this.props.postId));
+          this.setState({ commentBody: '' });
+        });
     }
   }
 
@@ -101,13 +103,16 @@ class PostComments extends Component {
         </Modal>
         <div>
           {
-            this.state.availableComments.length === 0 ?
+            this.props.allPostComments.length === 0 ?
               <p>There is no post comments</p> :
-              <ul>
-                {this.state.availableComments.map(item => (
-                  <PostComment key={item.id} data={item} />
-                ))}
-              </ul>
+              <div>
+                <h4>Post comments: </h4>
+                <ul>
+                  {this.props.allPostComments.map(item => (
+                    <PostComment key={item.id} data={item} />
+                  ))}
+                </ul>
+              </div>
           }
         </div>
       </div>
@@ -121,6 +126,15 @@ PostComments.defaultProps = {
 
 PostComments.propTypes = {
   postId: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
+  allPostComments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+  })).isRequired,
 };
 
-export default PostComments;
+const mapStateToProps = state => ({
+  allPostComments: state[state.currentPostId] || [],
+});
+
+const connectedPostComments = connect(mapStateToProps)(PostComments);
+export default connectedPostComments;

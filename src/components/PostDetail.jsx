@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Post from '../components/Post';
 import PostComments from '../components/PostComments';
@@ -26,6 +27,16 @@ class PostDetail extends Component {
 
     return (
       <div>
+        <Link to="/">
+          <i
+            className="material-icons"
+            style={{ color: 'green' }}
+            role="button"
+            tabIndex="-1"
+          >
+            home
+          </i>
+        </Link>
         <Post data={this.state.data} />
         <PostComments postId={postId} />
       </div>
