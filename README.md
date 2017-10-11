@@ -1,4 +1,6 @@
-In order to get the app up and running execute:
+In order to get the application up and running first get the server up:
 
-1.- node server/server.js
-2.- npm start
+node server/server.js
+
+then in other terminal start the client application:
+npm start
