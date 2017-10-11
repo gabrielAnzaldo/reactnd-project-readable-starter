@@ -16,7 +16,7 @@ class CategoryPosts extends Component {
       <ul>
         {this.props && this.props.categoryPosts &&
           this.props.categoryPosts.map(item => (
-            <Post key={item.id} data={item} />
+            <Post key={item.id} data={item} showControls={false} />
           ))}
         {this.props && this.props.categoryPosts &&
           this.props.categoryPosts.length === 0 &&

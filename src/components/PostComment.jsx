@@ -14,6 +14,14 @@ const customStyles = {
   },
 };
 
+const editStyles = {
+  content: {
+    height: '125px',
+    width: '600px',
+    margin: '0 auto',
+  },
+};
+
 class PostComment extends Component {
   state = {
     deletePostCommentIsOpen: false,
@@ -106,9 +114,9 @@ class PostComment extends Component {
           onRequestClose={this.closeDeletePostCommentModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
-          style={customStyles}
+          style={editStyles}
         >
-          <p>Are you sure you want to delete this Post?</p>
+          <p>Are you sure you want to delete this comment?</p>
           <div className="row">
             <div className="col-1">
               <button
@@ -131,7 +139,7 @@ class PostComment extends Component {
           </div>
         </Modal>
         <div className="col-4">
-          comment: {this.props.data.body}
+          {this.props.data.body}
         </div>
         <div className="col-2">
           <i

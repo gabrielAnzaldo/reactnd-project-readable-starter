@@ -76,7 +76,7 @@ class AllBlogPost extends Component {
         <h3>All posts</h3>
         <ul>
           {posts.map(item => (
-            <Post key={item.id} data={item} />
+            <Post key={item.id} data={item} showControls />
           ))}
         </ul>
       </div >

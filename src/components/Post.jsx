@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { changeVotePost, deletePost } from '../http-service';
 import { fetchAllPosts } from '../actions';
+import EditPost from '../components/EditPost';
 
 const customStyles = {
   content: {
@@ -91,24 +92,20 @@ class Post extends Component {
               <h4 className="card-title">{this.props.data.title}</h4>
             </div>
             <div className="col-2">
-              <i
-                className="material-icons"
-                style={{ float: 'right', color: '#e25151', cursor: 'pointer' }}
-                onClick={this.deletePost}
-                role="button"
-                tabIndex="-1"
-              >
-                delete
-              </i>
-              <i
-                className="material-icons"
-                style={{ float: 'right', color: 'rgb(20, 86, 156)', cursor: 'pointer' }}
-                onClick={this.editPost}
-                role="button"
-                tabIndex="-1"
-              >
-                edit
-              </i>
+              {this.props.showControls &&
+                <div>
+                  <i
+                    className="material-icons"
+                    style={{ float: 'right', color: '#e25151', cursor: 'pointer' }}
+                    onClick={this.deletePost}
+                    role="button"
+                    tabIndex="-1"
+                  >
+                    delete
+                  </i>
+                  <EditPost postData={this.props.data} />
+                </div>
+              }
             </div>
           </div>
           <h6 className="card-subtitle mb-2 text-muted">
@@ -153,6 +150,7 @@ Post.defaultProps = {
 };
 
 Post.propTypes = {
+  showControls: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,

@@ -37,7 +37,7 @@ class PostDetail extends Component {
             home
           </i>
         </Link>
-        <Post data={this.state.data} />
+        <Post data={this.state.data} showControls={false} />
         <PostComments postId={postId} />
       </div>
     );

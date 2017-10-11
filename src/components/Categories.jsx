@@ -19,9 +19,7 @@ const Categories = ({ categories }) => (
     </div>
     <ul>
       {categories && categories.map(item => (
-        <div key={item.name}>
-          <li ><Link to={`/${item.path}`}>{item.name}</Link></li>
-        </div>
+        <li key={item.name}><Link to={`/${item.path}`}>{item.name}</Link></li>
       ))}
     </ul>
   </div>

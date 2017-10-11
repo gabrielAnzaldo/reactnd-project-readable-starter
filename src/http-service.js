@@ -26,6 +26,19 @@ export const addNewPost = postData => fetch(`${api}/posts`,
   .then(response => response.json())
   .catch(response => response.json());
 
+export const editPost = postData => fetch(`${api}/posts/${postData.id}`,
+  {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'granted',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postData),
+  })
+  .then(response => response.json())
+  .catch(response => response.json());
+
 export const getPost = postId => fetch(`${api}/posts/${postId}`,
   defaultParameters)
   .then(response => response.json());
