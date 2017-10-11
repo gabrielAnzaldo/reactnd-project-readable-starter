@@ -3,5 +3,8 @@
   "env": {
     "browser": true
   },
-  "extends": "airbnb"
+  "extends": "airbnb",
+  "rules": {
+    "linebreak-style": 0
+  }
 }
