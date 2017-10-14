@@ -55,6 +55,18 @@ export const changeVotePost = (postId, voteParam) => fetch(`${api}/posts/${postI
   })
   .then(response => response.json());
 
+export const changeVoteCommentScore = (commentId, voteParam) => fetch(`${api}/comments/${commentId}`,
+  {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'granted',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ option: voteParam }),
+  })
+  .then(response => response.json());
+
 export const deletePost = postId => fetch(`${api}/posts/${postId}`,
   {
     method: 'DELETE',

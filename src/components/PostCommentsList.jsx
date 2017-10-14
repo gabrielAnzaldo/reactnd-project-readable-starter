@@ -43,6 +43,7 @@ class PostComments extends Component {
         body: this.state.commentBody,
         author: this.state.commentAuthorName,
         parentId: this.props.postId,
+        voteScore: 0,
       };
       addNewComment(postCommentData)
         .then(() => {

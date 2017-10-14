@@ -131,6 +131,7 @@ class Post extends Component {
           </p>
           <h5><b>score:</b> {this.props.data.voteScore}</h5>
           <h5><b>comments:</b> {this.props.numberOfComments}</h5>
+          <h5><b>category:</b> {this.props.data.category}</h5>
           {this.props.showControls &&
             <Link to={`/${this.props.data.category}/${this.props.data.id}`}>
               view details

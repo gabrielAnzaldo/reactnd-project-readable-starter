@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
-import { deletePostComment, editPostComment } from '../http-service';
+import { deletePostComment, editPostComment, changeVoteCommentScore } from '../http-service';
 import { fetchPostComments } from '../actions/index';
 
 const customStyles = {
@@ -70,6 +70,13 @@ class PostComment extends Component {
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  votePostComment = (voteType) => {
+    changeVoteCommentScore(this.props.data.id, voteType)
+      .then(() => {
+        this.props.dispatch(fetchPostComments(this.props.data.parentId));
+      });
   }
 
   render() {
@@ -155,7 +162,8 @@ class PostComment extends Component {
         <div className="row">
           <div className="col-4">
             Author: {this.props.data.author}<br />
-            {this.props.data.body}
+            {this.props.data.body}<br />
+            Vote score: {this.props.data.voteScore}
           </div>
           <div className="col-2">
             <i
@@ -179,7 +187,7 @@ class PostComment extends Component {
             <i
               className="material-icons"
               style={{ float: 'right', cursor: 'pointer' }}
-              onClick={this.editPost}
+              onClick={() => this.votePostComment('downVote')}
               role="button"
               tabIndex="-1"
             >
@@ -188,7 +196,7 @@ class PostComment extends Component {
             <i
               className="material-icons"
               style={{ float: 'right', cursor: 'pointer' }}
-              onClick={this.editPost}
+              onClick={() => this.votePostComment('upVote')}
               role="button"
               tabIndex="-1"
             >
@@ -208,6 +216,7 @@ PostComment.propTypes = {
     id: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
+    voteScore: PropTypes.number.isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

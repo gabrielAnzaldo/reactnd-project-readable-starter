@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchPostsByCategory } from '../actions/index';
 
 import Post from './Post';
+import Categories from './Categories';
 
 class CategoryPosts extends Component {
   componentDidMount() {
@@ -13,16 +15,29 @@ class CategoryPosts extends Component {
 
   render() {
     return (
-      <ul>
-        {this.props && this.props.categoryPosts &&
-          this.props.categoryPosts.map(item => (
-            <Post key={item.id} data={item} showControls />
-          ))}
-        {this.props && this.props.categoryPosts &&
-          this.props.categoryPosts.length === 0 &&
-          <p>There is no added posts </p>
-        }
-      </ul>
+      <div>
+        <Link to="/">
+          <i
+            className="material-icons"
+            style={{ color: 'green' }}
+            role="button"
+            tabIndex="-1"
+          >
+            home
+          </i>
+        </Link>
+        <Categories />
+        <ul>
+          {this.props && this.props.categoryPosts &&
+            this.props.categoryPosts.map(item => (
+              <Post key={item.id} data={item} showControls />
+            ))}
+          {this.props && this.props.categoryPosts &&
+            this.props.categoryPosts.length === 0 &&
+            <p>There is no added posts </p>
+          }
+        </ul>
+      </div>
     );
   }
 }
