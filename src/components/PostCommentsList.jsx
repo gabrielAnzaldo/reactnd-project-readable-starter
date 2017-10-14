@@ -88,6 +88,7 @@ class PostComments extends Component {
                 name="commentAuthorName"
                 value={this.state.commentAuthorName}
                 onChange={this.onChange}
+                autoFocus
               />
             </div>
             <div className="form-group">

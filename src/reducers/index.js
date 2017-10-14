@@ -11,6 +11,8 @@ export default (state = [], action) => {
         [action.postId]: action.postComments,
         currentPostId: action.postId,
       });
+    case 'GET_CURRENT_POST':
+      return Object.assign({}, state, { currentPostData: action.currentPostData });
     default:
       return state;
   }

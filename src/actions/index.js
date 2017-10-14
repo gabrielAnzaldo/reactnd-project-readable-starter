@@ -4,6 +4,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY';
 export const GET_ALL_POST_COMMENTS = 'GET_ALL_POST_COMMENTS';
+export const GET_CURRENT_POST = 'GET_CURRENT_POST';
 
 export const getCategories = categories => ({
   type: GET_CATEGORIES,
@@ -25,6 +26,11 @@ export const getPostComments = (postId, postComments) => ({
   type: GET_ALL_POST_COMMENTS,
   postId,
   postComments,
+});
+
+export const getCurrentPost = currentPostData => ({
+  type: GET_CURRENT_POST,
+  currentPostData,
 });
 
 export const fetchCategories = () => dispatch => (
@@ -55,4 +61,10 @@ export const fetchPostComments = postId => dispatch => (
   BlogAPI
     .getPostComments(postId)
     .then(response => dispatch(getPostComments(postId, response)))
+);
+
+export const fetchCurrentPost = postId => dispatch => (
+  BlogAPI
+    .getPost(postId)
+    .then(response => dispatch(getCurrentPost(response)))
 );

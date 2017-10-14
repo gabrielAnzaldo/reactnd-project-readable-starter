@@ -98,6 +98,7 @@ class PostComment extends Component {
               name="tempPostCommentAuthor"
               value={this.state.tempPostCommentAuthor}
               onChange={this.handleChange}
+              autoFocus
             />
           </div>
           <textarea

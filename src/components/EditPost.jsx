@@ -97,6 +97,7 @@ class EditPost extends Component {
                   placeholder="Title"
                   onChange={this.handleChange}
                   value={this.state.title}
+                  autoFocus
                 />
               </div>
               <div className="col">
@@ -155,12 +156,12 @@ class EditPost extends Component {
 
 EditPost.propTypes = {
   postData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    voteScore: PropTypes.number.isRequired,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    author: PropTypes.string,
+    body: PropTypes.string,
+    category: PropTypes.string,
+    voteScore: PropTypes.number,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

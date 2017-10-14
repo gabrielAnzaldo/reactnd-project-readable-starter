@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { changeVotePost, deletePost, getPostComments } from '../http-service';
-import { fetchAllPosts } from '../actions';
+import { fetchAllPosts, fetchPostsByCategory, fetchCurrentPost } from '../actions';
 import EditPost from '../components/EditPost';
 
 const customStyles = {
@@ -51,9 +51,28 @@ class Post extends Component {
     if (state) {
       deletePost(this.props.data.id)
         .then(() => {
-          this.props.dispatch(fetchAllPosts());
+          const pathName = this.props.location.pathname;
+
+          if (pathName === '/') {
+            this.props.dispatch(fetchAllPosts());
+          } else if (this.isInCategoryPost(pathName)) {
+            this.props.dispatch(fetchPostsByCategory(pathName.substring(1)));
+          } else {
+            this.props.dispatch(fetchCurrentPost(this.props.data.id));
+          }
         });
     }
+  }
+
+  isInCategoryPost = (pathName) => {
+    let isInCategory = false;
+    if (pathName.length < 10 && (pathName.indexOf('/react') >= 0 ||
+      pathName.indexOf('/redux') >= 0 ||
+      pathName.indexOf('/udacity') >= 0)) {
+      isInCategory = true;
+    }
+
+    return isInCategory;
   }
 
   deletePost = () => {
@@ -181,6 +200,9 @@ Post.propTypes = {
   dispatch: PropTypes.func,
   postId: PropTypes.string,
   numberOfComments: PropTypes.number.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -193,5 +215,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const connectedPostComponent = connect(mapStateToProps)(Post);
+const PostWithLocation = withRouter(Post);
+const connectedPostComponent = connect(mapStateToProps)(PostWithLocation);
 export default connectedPostComponent;

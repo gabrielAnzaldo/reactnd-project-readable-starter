@@ -41,7 +41,7 @@ class AddPost extends Component {
       title: '',
       body: '',
       author: '',
-      category: '',
+      category: 'react',
       voteScore: 1,
       deleted: false,
     })
@@ -101,6 +101,7 @@ class AddPost extends Component {
                   placeholder="Title"
                   onChange={this.handleChange}
                   value={this.state.title}
+                  autoFocus
                 />
               </div>
               <div className="col">

@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Post from '../components/Post';
 import PostCommentsList from '../components/PostCommentsList';
-import { getPost } from '../http-service';
+import { fetchCurrentPost } from '../actions/index';
 
 class PostDetail extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: {},
-    };
-  }
-
   componentDidMount() {
     const { postId } = this.props.match.params;
-    getPost(postId)
-      .then((response) => {
-        this.setState({ data: response });
-      });
+    this.props.dispatch(fetchCurrentPost(postId));
   }
 
   render() {
@@ -37,8 +28,18 @@ class PostDetail extends Component {
             home
           </i>
         </Link>
-        <Post data={this.state.data} postId={postId} showControls={false} />
-        <PostCommentsList postId={postId} />
+        {Object.keys(this.props.currentPostData).length === 0 &&
+          <div>
+            <p> Post not found </p>
+            See more post in <Link to="/">home page</Link>
+          </div>
+        }
+        {Object.keys(this.props.currentPostData).length !== 0 &&
+          <div>
+            <Post data={this.props.currentPostData} postId={postId} showControls />
+            <PostCommentsList postId={postId} />
+          </div>
+        }
       </div>
     );
   }
@@ -50,6 +51,13 @@ PostDetail.propTypes = {
       postId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  currentPostData: PropTypes.shape({}).isRequired,
 };
 
-export default PostDetail;
+const mapStateToProps = state => ({
+  currentPostData: state.currentPostData || {},
+});
+
+const connectedPostDetail = connect(mapStateToProps)(PostDetail);
+export default connectedPostDetail;
