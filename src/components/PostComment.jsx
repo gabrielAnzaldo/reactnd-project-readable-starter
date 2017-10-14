@@ -8,7 +8,7 @@ import { fetchPostComments } from '../actions/index';
 
 const customStyles = {
   content: {
-    height: '250px',
+    height: '285px',
     width: '600px',
     margin: '0 auto',
   },
@@ -27,6 +27,7 @@ class PostComment extends Component {
     deletePostCommentIsOpen: false,
     editPostCommentIsOpen: false,
     tempPostComment: '',
+    tempPostCommentAuthor: '',
   };
 
   deletePost = () => {
@@ -47,6 +48,7 @@ class PostComment extends Component {
     this.setState({
       editPostCommentIsOpen: true,
       tempPostComment: this.props.data.body,
+      tempPostCommentAuthor: this.props.data.author,
     });
   }
 
@@ -56,6 +58,7 @@ class PostComment extends Component {
       const newComment = {
         id: this.props.data.id,
         body: this.state.tempPostComment,
+        author: this.state.tempPostCommentAuthor,
         timestamp: new Date(),
       };
       editPostComment(newComment)
@@ -66,12 +69,12 @@ class PostComment extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({ tempPostComment: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
     return (
-      <div className="row">
+      <div>
         <Modal
           isOpen={this.state.editPostCommentIsOpen}
           onRequestClose={this.closeEditPostCommentModal}
@@ -79,12 +82,23 @@ class PostComment extends Component {
           contentLabel="Modal"
           style={customStyles}
         >
+          <div className="form-group">
+            <label htmlFor="commentAuthor">Author</label>
+            <input
+              className="form-control"
+              id="commentAuthor"
+              placeholder="Comment author"
+              name="tempPostCommentAuthor"
+              value={this.state.tempPostCommentAuthor}
+              onChange={this.handleChange}
+            />
+          </div>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
             rows="5"
             placeholder="body"
-            name="body"
+            name="tempPostComment"
             onChange={this.handleChange}
             value={this.state.tempPostComment}
           />
@@ -138,29 +152,51 @@ class PostComment extends Component {
             </div>
           </div>
         </Modal>
-        <div className="col-4">
-          {this.props.data.body}
+        <div className="row">
+          <div className="col-4">
+            Author: {this.props.data.author}<br />
+            {this.props.data.body}
+          </div>
+          <div className="col-2">
+            <i
+              className="material-icons"
+              style={{ float: 'right', color: '#e25151', cursor: 'pointer' }}
+              onClick={this.deletePost}
+              role="button"
+              tabIndex="-1"
+            >
+              delete
+            </i>
+            <i
+              className="material-icons"
+              style={{ float: 'right', color: 'rgb(20, 86, 156)', cursor: 'pointer' }}
+              onClick={this.editPost}
+              role="button"
+              tabIndex="-1"
+            >
+              edit
+            </i>
+            <i
+              className="material-icons"
+              style={{ float: 'right', cursor: 'pointer' }}
+              onClick={this.editPost}
+              role="button"
+              tabIndex="-1"
+            >
+              thumb_down
+            </i>
+            <i
+              className="material-icons"
+              style={{ float: 'right', cursor: 'pointer' }}
+              onClick={this.editPost}
+              role="button"
+              tabIndex="-1"
+            >
+              thumb_up
+            </i>
+          </div>
         </div>
-        <div className="col-2">
-          <i
-            className="material-icons"
-            style={{ float: 'right', color: '#e25151', cursor: 'pointer' }}
-            onClick={this.deletePost}
-            role="button"
-            tabIndex="-1"
-          >
-            delete
-          </i>
-          <i
-            className="material-icons"
-            style={{ float: 'right', color: 'rgb(20, 86, 156)', cursor: 'pointer' }}
-            onClick={this.editPost}
-            role="button"
-            tabIndex="-1"
-          >
-            edit
-          </i>
-        </div>
+        <hr style={{ marginRight: '25%' }} />
       </div>
     );
   }
@@ -171,6 +207,7 @@ PostComment.propTypes = {
     body: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

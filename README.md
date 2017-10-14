@@ -1,8 +1,8 @@
-In order to get the application up and running first get the server up:
+In order to get the application up and running first install the dependencies:
+npm install
 
+then get the server up and running:
 node server/server.js
 
-then in other terminal start the client application:
-
-npm install
+finally in other terminal start the client application:
 npm start

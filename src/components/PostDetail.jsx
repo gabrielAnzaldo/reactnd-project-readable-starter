@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Post from '../components/Post';
-import PostComments from '../components/PostComments';
+import PostCommentsList from '../components/PostCommentsList';
 import { getPost } from '../http-service';
 
 class PostDetail extends Component {
@@ -37,8 +37,8 @@ class PostDetail extends Component {
             home
           </i>
         </Link>
-        <Post data={this.state.data} showControls={false} />
-        <PostComments postId={postId} />
+        <Post data={this.state.data} postId={postId} showControls={false} />
+        <PostCommentsList postId={postId} />
       </div>
     );
   }

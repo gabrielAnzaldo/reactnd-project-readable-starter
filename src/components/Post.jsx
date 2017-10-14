@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 
-import { changeVotePost, deletePost } from '../http-service';
+import { changeVotePost, deletePost, getPostComments } from '../http-service';
 import { fetchAllPosts } from '../actions';
 import EditPost from '../components/EditPost';
 
@@ -19,10 +19,25 @@ const customStyles = {
 class Post extends Component {
   state = {
     deletePostModalIsOpen: false,
+    numberOfComments: 0,
   };
 
+  componentDidMount() {
+    getPostComments(this.getPostId())
+      .then(response => this.setState({ numberOfComments: response.length }));
+  }
+
+  getPostId = () => {
+    let postId = this.props.data.id;
+    if (!postId) {
+      postId = this.props.postId;
+    }
+
+    return postId;
+  }
+
   changeVote = (voteType) => {
-    changeVotePost(this.props.data.id, voteType)
+    changeVotePost(this.getPostId(), voteType)
       .then(() => {
         this.props.dispatch(fetchAllPosts());
       });
@@ -115,10 +130,12 @@ class Post extends Component {
             {this.props.data.body}
           </p>
           <h5><b>score:</b> {this.props.data.voteScore}</h5>
-
-          <Link to={`/${this.props.data.category}/${this.props.data.id}`}>
-            view details
-          </Link>
+          <h5><b>comments:</b> {this.props.numberOfComments}</h5>
+          {this.props.showControls &&
+            <Link to={`/${this.props.data.category}/${this.props.data.id}`}>
+              view details
+            </Link>
+          }
           <div className="row">
             <div className="col">
               <button
@@ -147,6 +164,7 @@ class Post extends Component {
 Post.defaultProps = {
   data: {},
   dispatch: () => { },
+  postId: '',
 };
 
 Post.propTypes = {
@@ -160,7 +178,19 @@ Post.propTypes = {
     body: PropTypes.string,
   }).isRequired,
   dispatch: PropTypes.func,
+  postId: PropTypes.string,
+  numberOfComments: PropTypes.number.isRequired,
 };
 
-const connectedPostComponent = connect()(Post);
+const mapStateToProps = (state) => {
+  let tempNumberOfComments = 0;
+  if (state && state[state.currentPostId]) {
+    tempNumberOfComments = state[state.currentPostId].length;
+  }
+  return {
+    numberOfComments: tempNumberOfComments,
+  };
+};
+
+const connectedPostComponent = connect(mapStateToProps)(Post);
 export default connectedPostComponent;

@@ -10,7 +10,7 @@ import { fetchPostComments } from '../actions/index';
 
 const customStyles = {
   content: {
-    height: '250px',
+    height: '375px',
     width: '600px',
     margin: '0 auto',
   },
@@ -20,6 +20,7 @@ class PostComments extends Component {
   state = {
     isOpen: false,
     commentBody: '',
+    commentAuthorName: '',
   };
 
   componentDidMount() {
@@ -27,29 +28,33 @@ class PostComments extends Component {
   }
 
   onChange = (event) => {
-    this.setState({ commentBody: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   addComment = () => {
     this.setState({ isOpen: true });
   }
 
-  closeDeletePostModal = (modalResponse) => {
-    this.setState({ isOpen: false });
+  closeAddPostComment = (modalResponse) => {
     if (modalResponse) {
       const postCommentData = {
         id: uuidv4(),
         timestamp: new Date(),
         body: this.state.commentBody,
-        owner: 'none',
+        author: this.state.commentAuthorName,
         parentId: this.props.postId,
       };
       addNewComment(postCommentData)
         .then(() => {
           this.props.dispatch(fetchPostComments(this.props.postId));
-          this.setState({ commentBody: '' });
         });
     }
+
+    this.setState({
+      isOpen: false,
+      commentAuthorName: '',
+      commentBody: '',
+    });
   }
 
   render() {
@@ -66,26 +71,43 @@ class PostComments extends Component {
         </i>
         <Modal
           isOpen={this.state.isOpen}
-          onRequestClose={this.closeDeletePostModal}
+          onRequestClose={this.closeAddPostComment}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
           style={customStyles}
         >
-          <p>Add a new comment: </p>
+          <p style={{ textAlign: 'center' }}><b>Add a new comment </b></p>
           <div>
-            <textarea
-              className="form-control"
-              rows="5"
-              value={this.state.commentBody}
-              onChange={this.onChange}
-            />
+            <div className="form-group">
+              <label htmlFor="commentAuthor">Author</label>
+              <input
+                className="form-control"
+                id="commentAuthor"
+                placeholder="Comment author"
+                name="commentAuthorName"
+                value={this.state.commentAuthorName}
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="commentBody">Description:</label>
+              <textarea
+                id="commentBody"
+                className="form-control"
+                placeholder="feel free to leave your comment"
+                rows="5"
+                name="commentBody"
+                value={this.state.commentBody}
+                onChange={this.onChange}
+              />
+            </div>
           </div>
           <div className="row">
             <div className="col-1">
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => this.closeDeletePostModal(true)}
+                onClick={() => this.closeAddPostComment(true)}
               >
                 Yes
               </button>
@@ -94,7 +116,7 @@ class PostComments extends Component {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => this.closeDeletePostModal(false)}
+                onClick={() => this.closeAddPostComment(false)}
               >
                 No
               </button>
