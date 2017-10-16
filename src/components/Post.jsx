@@ -52,10 +52,8 @@ class Post extends Component {
       deletePost(this.props.data.id)
         .then(() => {
           const pathName = this.props.location.pathname;
-
-          if (pathName === '/') {
-            this.props.dispatch(fetchAllPosts());
-          } else if (this.isInCategoryPost(pathName)) {
+          this.props.dispatch(fetchAllPosts());
+          if (this.isInCategoryPost(pathName)) {
             this.props.dispatch(fetchPostsByCategory(pathName.substring(1)));
           } else {
             this.props.dispatch(fetchCurrentPost(this.props.data.id));
