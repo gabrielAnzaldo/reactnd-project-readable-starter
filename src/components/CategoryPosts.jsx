@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { fetchPostsByCategory } from '../actions/index';
 
 import Post from './Post';
-import Categories from './Categories';
 
 class CategoryPosts extends Component {
   componentDidMount() {
@@ -26,7 +25,7 @@ class CategoryPosts extends Component {
             home
           </i>
         </Link>
-        <Categories />
+        <h4>{this.props.match.params.category} posts: </h4>
         <ul>
           {this.props && this.props.categoryPosts &&
             this.props.categoryPosts.map(item => (
