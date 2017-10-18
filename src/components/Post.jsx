@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { Link, withRouter } from 'react-router-dom';
 
-import { changeVotePost, deletePost, getPostComments } from '../http-service';
-import { fetchAllPosts, fetchPostsByCategory, fetchCurrentPost } from '../actions';
+import { changeVotePost, deletePost } from '../http-service';
+import {
+  fetchAllPosts,
+  fetchPostsByCategory,
+  fetchCurrentPost,
+  fetchPostComments,
+} from '../actions';
 import EditPost from '../components/EditPost';
 
 const customStyles = {
@@ -23,8 +28,7 @@ class Post extends Component {
   };
 
   componentDidMount() {
-    getPostComments(this.getPostId())
-      .then(response => this.setState({ numberOfComments: response.length }));
+    this.props.dispatch(fetchPostComments(this.getPostId()));
   }
 
   getPostId = () => {
@@ -203,10 +207,10 @@ Post.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   let tempNumberOfComments = 0;
-  if (state && state[state.currentPostId]) {
-    tempNumberOfComments = state[state.currentPostId].length;
+  if (state && state[ownProps.data.id]) {
+    tempNumberOfComments = state[ownProps.data.id].length;
   }
   return {
     numberOfComments: tempNumberOfComments,
