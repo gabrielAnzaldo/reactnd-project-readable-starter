@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
-import { deletePostComment, editPostComment, changeVoteCommentScore } from '../http-service';
-import { fetchPostComments } from '../actions/index';
+import {
+  deletePostComment,
+  editPostComment,
+  changeVoteCommentScore,
+} from '../../service/api/http-service';
+import { fetchPostComments } from '../../actions/index';
 
 const customStyles = {
   content: {

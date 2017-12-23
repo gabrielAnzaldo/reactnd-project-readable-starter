@@ -4,9 +4,9 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 
-import { addNewComment } from '../http-service';
+import { addNewComment } from '../../service/api/http-service';
 import PostComment from './PostComment';
-import { fetchPostComments } from '../actions/index';
+import { fetchPostComments } from '../../actions/index';
 
 const customStyles = {
   content: {

@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { Link, withRouter } from 'react-router-dom';
 
-import { changeVotePost, deletePost } from '../http-service';
+import { changeVotePost, deletePost } from '../../service/api/http-service';
 import {
   fetchAllPosts,
   fetchPostsByCategory,
   fetchCurrentPost,
   fetchPostComments,
-} from '../actions';
-import EditPost from '../components/EditPost';
+} from '../../actions';
+import EditPost from './EditPost';
 
 const customStyles = {
   content: {

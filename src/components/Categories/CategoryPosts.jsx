@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchPostsByCategory } from '../actions/index';
+import { fetchPostsByCategory } from '../../actions/index';
 
-import Post from './Post';
+import Post from '../Posts/Post';
 
 class CategoryPosts extends Component {
   componentDidMount() {

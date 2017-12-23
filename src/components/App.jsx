@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Categories from './Categories';
-import CategoryPosts from './CategoryPosts';
-import AllBlogPost from './AllBlogPost';
-import PostDetail from '../components/PostDetail';
+import Categories from '../components/Categories/Categories';
+import CategoryPosts from '../components/Categories/CategoryPosts';
+import AllBlogPost from '../components/Posts/AllBlogPost';
+import PostDetail from '../components/Posts/PostDetail';
 
 const Main = () => (
   <div>

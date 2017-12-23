@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Post from '../components/Post';
-import PostCommentsList from '../components/PostCommentsList';
-import { fetchCurrentPost } from '../actions/index';
+import Post from './Post';
+import PostCommentsList from './PostCommentsList';
+import { fetchCurrentPost } from '../../actions/index';
 
 class PostDetail extends Component {
   componentDidMount() {

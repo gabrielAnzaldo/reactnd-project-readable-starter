@@ -4,8 +4,8 @@ import Modal from 'react-modal';
 import uuidv4 from 'uuid/v4';
 import { connect } from 'react-redux';
 
-import { addNewPost } from '../http-service';
-import { fetchAllPosts } from '../actions';
+import { addNewPost } from '../../service/api/http-service';
+import { fetchAllPosts } from '../../actions';
 
 const customStyles = {
   content: {

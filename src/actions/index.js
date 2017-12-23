@@ -1,4 +1,4 @@
-import * as BlogAPI from '../http-service';
+import * as BlogAPI from '../service/api/http-service';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';

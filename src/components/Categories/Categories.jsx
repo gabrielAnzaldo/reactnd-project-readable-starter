@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import AddPost from './AddPost';
+import AddPost from '../Posts/AddPost';
 
 const Categories = ({ categories }) => (
   <div>

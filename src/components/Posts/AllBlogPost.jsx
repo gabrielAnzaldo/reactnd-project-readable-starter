@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import sortBy from 'sort-by';
-import '../../node_modules/material-design-icons/iconfont/material-icons.css';
+import '../../../node_modules/material-design-icons/iconfont/material-icons.css';
 
 import Post from './Post';
 

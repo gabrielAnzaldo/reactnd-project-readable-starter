@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
-import { editPost } from '../http-service';
-import { fetchAllPosts } from '../actions';
+import { editPost } from '../../service/api/http-service';
+import { fetchAllPosts } from '../../actions';
 
 const customStyles = {
   content: {
