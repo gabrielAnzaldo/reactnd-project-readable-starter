@@ -7,14 +7,7 @@ import uuidv4 from 'uuid/v4';
 import { addNewComment } from '../../service/api/http-service';
 import PostComment from './PostComment';
 import { fetchPostComments } from '../../actions/index';
-
-const customStyles = {
-  content: {
-    height: '375px',
-    width: '600px',
-    margin: '0 auto',
-  },
-};
+import customPostStyles from './AddPostStyles';
 
 class PostComments extends Component {
   state = {
@@ -75,7 +68,7 @@ class PostComments extends Component {
           onRequestClose={this.closeAddPostComment}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
-          style={customStyles}
+          style={customPostStyles('400px', '600px')}
         >
           <p style={{ textAlign: 'center' }}><b>Add a new comment </b></p>
           <div>

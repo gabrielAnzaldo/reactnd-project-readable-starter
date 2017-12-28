@@ -9,22 +9,7 @@ import {
   changeVoteCommentScore,
 } from '../../service/api/http-service';
 import { fetchPostComments } from '../../actions/index';
-
-const customStyles = {
-  content: {
-    height: '285px',
-    width: '600px',
-    margin: '0 auto',
-  },
-};
-
-const editStyles = {
-  content: {
-    height: '125px',
-    width: '600px',
-    margin: '0 auto',
-  },
-};
+import customPostStyles from './AddPostStyles';
 
 class PostComment extends Component {
   state = {
@@ -91,7 +76,7 @@ class PostComment extends Component {
           onRequestClose={this.closeEditPostCommentModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
-          style={customStyles}
+          style={customPostStyles('400px', '600px')}
         >
           <div className="form-group">
             <label htmlFor="commentAuthor">Author</label>
@@ -140,7 +125,7 @@ class PostComment extends Component {
           onRequestClose={this.closeDeletePostCommentModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
-          style={editStyles}
+          style={customPostStyles('125px', '600px')}
         >
           <p>Are you sure you want to delete this comment?</p>
           <div className="row">

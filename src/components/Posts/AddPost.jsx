@@ -6,14 +6,7 @@ import { connect } from 'react-redux';
 
 import { addNewPost } from '../../service/api/http-service';
 import { fetchAllPosts } from '../../actions';
-
-const customStyles = {
-  content: {
-    height: '400px',
-    width: '650px',
-    margin: '0 auto',
-  },
-};
+import defaultPostStyles from './AddPostStyles';
 
 class AddPost extends Component {
   state = {
@@ -80,7 +73,7 @@ class AddPost extends Component {
           onRequestClose={this.closeModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Example Modal"
-          style={customStyles}
+          style={defaultPostStyles()}
         >
           <i
             onClick={this.closeModal}

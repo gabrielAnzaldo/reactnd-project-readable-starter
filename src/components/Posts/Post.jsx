@@ -12,14 +12,7 @@ import {
   fetchPostComments,
 } from '../../actions';
 import EditPost from './EditPost';
-
-const customStyles = {
-  content: {
-    height: '120px',
-    width: '600px',
-    margin: '0 auto',
-  },
-};
+import customPostStyles from './AddPostStyles';
 
 class Post extends Component {
   state = {
@@ -98,7 +91,7 @@ class Post extends Component {
           onRequestClose={this.closeDeletePostModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Modal"
-          style={customStyles}
+          style={customPostStyles('120px', '600px')}
         >
           <p>Are you sure you want to delete this Post?</p>
           <div className="row">
