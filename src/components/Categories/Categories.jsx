@@ -6,23 +6,34 @@ import { Link } from 'react-router-dom';
 import AddPost from '../Posts/AddPost';
 
 const Categories = ({ categories }) => (
-  <div>
-    <div className="row">
-      <div className="col">
-        <h3>
-          Categories
-        </h3>
-      </div>
-      <div className="col">
-        <AddPost />
-      </div>
+  <nav className="navbar navbar-expand-md navbar-light bg-light">
+    <a className="navbar-brand"><strong>Categories</strong></a>
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon" />
+    </button>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav mr-auto">
+        {categories && categories.map(item => (
+          <li className="nav-item" key={item.name}>
+            <Link className="nav-link" to={`/${item.path}`}>
+              <span>
+                {item.name}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <AddPost />
     </div>
-    <ul>
-      {categories && categories.map(item => (
-        <li key={item.name}><Link to={`/${item.path}`}>{item.name}</Link></li>
-      ))}
-    </ul>
-  </div>
+  </nav>
 );
 
 Categories.propTypes = {

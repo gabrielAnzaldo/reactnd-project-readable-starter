@@ -62,7 +62,7 @@ class AddPost extends Component {
         <i
           className="material-icons"
           onClick={this.openModal}
-          style={{ cursor: 'pointer', marginLeft: '90%', marginTop: '10px', color: '#539453' }}
+          style={{ cursor: 'pointer', marginTop: '10px', color: '#539453' }}
           role="button"
           tabIndex="0"
         >
