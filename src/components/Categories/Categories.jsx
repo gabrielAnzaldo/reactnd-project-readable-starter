@@ -7,6 +7,16 @@ import AddPost from '../Posts/AddPost';
 
 const Categories = ({ categories }) => (
   <nav className="navbar navbar-expand-md navbar-light bg-light">
+    <Link to="/">
+      <i
+        className="material-icons"
+        style={{ color: 'green', padding: '10px' }}
+        role="button"
+        tabIndex="-1"
+      >
+            home
+      </i>
+    </Link>
     <a className="navbar-brand"><strong>Categories</strong></a>
     <button
       className="navbar-toggler"

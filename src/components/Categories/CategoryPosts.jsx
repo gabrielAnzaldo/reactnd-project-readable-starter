@@ -1,45 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { fetchPostsByCategory } from '../../actions/index';
 
 import Post from '../Posts/Post';
+import Categories from '../Categories/Categories';
 
-class CategoryPosts extends Component {
-  componentDidMount() {
-    const { category } = this.props.match.params;
-    this.props.dispatch(fetchPostsByCategory(category));
-  }
+const CategoryPosts = (props) => {
+  const { category } = props.match.params;
+  props.dispatch(fetchPostsByCategory(category));
 
-  render() {
-    return (
-      <div>
-        <Link to="/">
-          <i
-            className="material-icons"
-            style={{ color: 'green' }}
-            role="button"
-            tabIndex="-1"
-          >
-            home
-          </i>
-        </Link>
-        <h4>{this.props.match.params.category} posts: </h4>
-        <ul>
-          {this.props && this.props.categoryPosts &&
-            this.props.categoryPosts.map(item => (
+  return (
+    <div>
+      <Categories />
+      <h4 style={{ margin: '2%' }}>
+        {props.match.params.category} posts:
+      </h4>
+      <ul>
+        {props && props.categoryPosts &&
+            props.categoryPosts.map(item => (
               <Post key={item.id} data={item} showControls />
             ))}
-          {this.props && this.props.categoryPosts &&
-            this.props.categoryPosts.length === 0 &&
+        {props && props.categoryPosts &&
+            props.categoryPosts.length === 0 &&
             <p>There is no added posts </p>
-          }
-        </ul>
-      </div>
-    );
-  }
-}
+        }
+      </ul>
+    </div>
+  );
+};
 
 CategoryPosts.propTypes = {
   dispatch: PropTypes.func.isRequired,

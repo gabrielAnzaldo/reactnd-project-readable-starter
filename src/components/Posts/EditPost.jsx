@@ -18,6 +18,10 @@ class EditPost extends Component {
     voteScore: 0,
   };
 
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
   componentDidMount = () => {
     this.setState({
       id: this.props.postData.id,
