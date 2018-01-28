@@ -1,10 +1,11 @@
 import * as BlogAPI from '../service/api/http-service';
-
-export const GET_CATEGORIES = 'GET_CATEGORIES';
-export const GET_ALL_POSTS = 'GET_ALL_POSTS';
-export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY';
-export const GET_ALL_POST_COMMENTS = 'GET_ALL_POST_COMMENTS';
-export const GET_CURRENT_POST = 'GET_CURRENT_POST';
+import {
+  GET_CATEGORIES,
+  GET_ALL_POSTS,
+  GET_POSTS_BY_CATEGORY,
+  GET_ALL_POST_COMMENTS,
+  GET_CURRENT_POST,
+} from '../constants';
 
 export const getCategories = categories => ({
   type: GET_CATEGORIES,

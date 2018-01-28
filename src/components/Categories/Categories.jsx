@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import AddPost from '../Posts/AddPost';
+import AddPost from '../Posts/PostActions/AddPost';
 
 const Categories = ({ categories }) => (
   <nav className="navbar navbar-expand-md navbar-light bg-light">

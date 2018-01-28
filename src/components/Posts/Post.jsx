@@ -11,7 +11,7 @@ import {
   fetchCurrentPost,
   fetchPostComments,
 } from '../../actions';
-import EditPost from './EditPost';
+import EditPost from './PostActions/EditPost';
 import customPostStyles from './AddPostStyles';
 
 class Post extends Component {

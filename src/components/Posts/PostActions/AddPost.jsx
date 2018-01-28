@@ -1,53 +1,53 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import uuidv4 from 'uuid/v4';
 import { connect } from 'react-redux';
 
-import { editPost } from '../../service/api/http-service';
-import { fetchAllPosts } from '../../actions';
-import defaultPostStyles from './AddPostStyles';
+import { addNewPost } from '../../../service/api/http-service';
+import { fetchAllPosts } from '../../../actions';
+import defaultPostStyles from '../AddPostStyles';
 
-class EditPost extends Component {
+class AddPost extends Component {
   state = {
-    showEditPostDialog: false,
-    id: -1,
+    modalIsOpen: false,
+    id: uuidv4(),
+    timestamp: Date.now(),
     title: '',
     body: '',
     author: '',
-    category: '',
-    voteScore: 0,
+    category: 'react',
   };
 
-  componentWillMount() {
-    Modal.setAppElement('body');
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      id: this.props.postData.id,
-      author: this.props.postData.author,
-      title: this.props.postData.title,
-      body: this.props.postData.body,
-      category: this.props.postData.category,
-      voteScore: this.props.postData.voteScore,
-    });
-  }
-
-  editPost = () => {
-    this.setState({ showEditPostDialog: true });
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
   }
 
   closeModal = () => {
-    this.setState({ showEditPostDialog: false });
+    this.setState({ modalIsOpen: false });
   }
+
+  clearNewPostState = () => (
+    this.setState({
+      id: uuidv4(),
+      timestamp: Date.now(),
+      title: '',
+      body: '',
+      author: '',
+      category: 'react',
+      voteScore: 1,
+      deleted: false,
+    })
+  );
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({ showEditPostDialog: false });
-    const newPostData = Object.assign({}, this.state, { timestamp: new Date() });
-    delete newPostData.showEditPostDialog;
-    editPost(newPostData)
+    this.closeModal();
+    const newPost = Object.assign({}, this.state);
+    delete newPost.modalIsOpen;
+    addNewPost(newPost)
       .then(() => {
+        this.clearNewPostState();
         this.props.dispatch(fetchAllPosts());
       });
   }
@@ -61,15 +61,15 @@ class EditPost extends Component {
       <div>
         <i
           className="material-icons"
-          style={{ float: 'right', color: 'rgb(20, 86, 156)', cursor: 'pointer' }}
-          onClick={this.editPost}
+          onClick={this.openModal}
+          style={{ cursor: 'pointer', marginTop: '10px', color: '#539453' }}
           role="button"
-          tabIndex="-1"
+          tabIndex="0"
         >
-          edit
+          add_circle
         </i>
         <Modal
-          isOpen={this.state.showEditPostDialog}
+          isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           shouldCloseOnOverlayClick={false}
           contentLabel="Example Modal"
@@ -80,7 +80,7 @@ class EditPost extends Component {
             role="button"
             tabIndex="-1"
             className="material-icons"
-            style={{ cursor: 'pointer', marginLeft: '97%', marginBottom: '10px' }}
+            style={{ cursor: 'pointer', marginLeft: '97%', marginBottom: '10px', color: 'red' }}
           >
             close
           </i>
@@ -137,12 +137,12 @@ class EditPost extends Component {
               </div>
               <div className="col" style={{ textAlign: 'center', marginTop: '10px' }}>
                 <label htmlFor="voteScore" >
-                  Vote score: <b>{this.state.voteScore}</b>
+                  Vote score: <b>1</b>
                 </label>
               </div>
             </div>
             <button type="submit" className="btn btn-primary" style={{ marginLeft: '86%' }}>
-              Edit post
+              Add post
             </button>
           </form>
         </Modal>
@@ -151,17 +151,9 @@ class EditPost extends Component {
   }
 }
 
-EditPost.propTypes = {
-  postData: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    author: PropTypes.string,
-    body: PropTypes.string,
-    category: PropTypes.string,
-    voteScore: PropTypes.number,
-  }).isRequired,
+AddPost.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const connectedEditPost = connect()(EditPost);
-export default connectedEditPost;
+const conectedComponent = connect()(AddPost);
+export default conectedComponent;
