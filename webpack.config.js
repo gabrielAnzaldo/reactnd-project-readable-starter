@@ -3,7 +3,7 @@ const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: ['babel-polyfill', 'isomorphic-fetch', './src/index.jsx'],
+  entry: ['babel-polyfill', 'isomorphic-fetch', './src/Index.jsx'],
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
