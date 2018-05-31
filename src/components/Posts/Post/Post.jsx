@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { changeVotePost, deletePost } from '../../service/api/http-service';
+import { changeVotePost, deletePost } from '../../../service/api/http-service';
 import {
   fetchAllPosts,
   fetchPostsByCategory,
   fetchCurrentPost,
   fetchPostComments,
-} from '../../actions';
-import EditPost from './PostActions/EditPost';
-import customPostStyles from './AddPostStyles';
+} from '../../../actions';
+import EditPost from '../PostActions/EditPost';
+import customPostStyles from '../AddPostStyles';
 
 class Post extends Component {
   state = {
@@ -204,16 +203,4 @@ Post.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  let tempNumberOfComments = 0;
-  if (state && state[ownProps.data.id]) {
-    tempNumberOfComments = state[ownProps.data.id].length;
-  }
-  return {
-    numberOfComments: tempNumberOfComments,
-  };
-};
-
-const PostWithLocation = withRouter(Post);
-const connectedPostComponent = connect(mapStateToProps)(PostWithLocation);
-export default connectedPostComponent;
+export default Post;

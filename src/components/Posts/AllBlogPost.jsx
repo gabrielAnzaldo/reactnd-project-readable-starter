@@ -30,7 +30,7 @@ class AllBlogPost extends Component {
         <hr />
         <div className="container">
           <div className="row">
-            One by:
+            Order by:
             <button
               type="button"
               className="btn btn-primary"
